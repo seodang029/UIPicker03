@@ -8,18 +8,41 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    @IBOutlet weak var myp: UIPickerView!
+    @IBOutlet weak var lbl: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    
+    myp.delegate = self
+    myp.dataSource = self
 }
 
+// UIPickerViewDataSource method
+func numberOfComponents(in pickerView: UIPickerView) -> Int { return 2
+}
+
+func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    if component == 0{
+        return 10
+    } else {
+        return 50
+    }
+}
+
+// UIPickerViewDelegate method
+func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    if component == 0 {
+        return "1st component \(row)"
+    } else {
+        return "2nd component \(row)"
+    }
+}
+
+func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    lbl.text = "comp = \(component) row = \(row)"
+}
+
+}
